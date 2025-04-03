@@ -1,3 +1,3 @@
-# cloudflare-worker
+# captcha
 
-Template for building a Cloudflare worker repo
+Deploy captcha on Cloudflare Worker
