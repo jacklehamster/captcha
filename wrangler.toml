@@ -1,4 +1,6 @@
-name = "cloudflare-worker"
+name = "captcha"
 compatibility_date = "2025-03-21"
-main = "src/index.ts"
-compatibility_flags = ["nodejs_compat"]
+
+[[routes]]
+pattern = "captcha.dobuki.net"
+zone_name = "dobuki.net"
