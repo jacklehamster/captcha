@@ -58,15 +58,15 @@ function initCaptcha(options) {
 window.initCaptcha = initCaptcha;
 `;
 
-const usageHtml = (siteKey: string): string => `
-  <script src="captcha.js?siteKey=${siteKey}&containerId=captcha-example&onSuccessCallback=function(token){console.log('Token:',token);}"></script>
+const usageHtml = (thisUrl?: string): string => `
+  <script src="${thisUrl ?? ""}captcha.js?containerId=captcha-example&onSuccessCallback=function(token){console.log('Token:',token);}"></script>
   <script>
     initCaptcha();
   </script>
 `;
 
 // Example HTML page
-const generateExampleHtml = (siteKey: string): string => `
+const generateExampleHtml = (): string => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,10 +80,7 @@ const generateExampleHtml = (siteKey: string): string => `
   <h1>CAPTCHA Example</h1>
   <p>This is an example of how to use the CAPTCHA script served by this Worker.</p>
   <div id="captcha-example"></div>
-  <script src="captcha.js?siteKey=${siteKey}&containerId=captcha-example&onSuccessCallback=function(token){console.log('Token:',token);}"></script>
-  <script>
-    initCaptcha();
-  </script>
+  ${usageHtml()}
   <p>After verification, check the browser console for the token, or submit the form to see the result.</p>
   <div id="code" style="white-space: wrap; text-align: left; border: 1px solid black; padding: 10px; font-size: 10pt">
   </div>
@@ -155,11 +152,11 @@ export default {
     }
 
     if (path === '/example') {
-      const exampleHtml = generateExampleHtml(SITE_KEY) +
+      const exampleHtml = generateExampleHtml() +
         `
         <script>
           document.addEventListener("DOMContentLoaded", () => {
-            document.querySelector("#code").innerText = decodeURI("${encodeURI(usageHtml('<SITE-KEY>'))}");
+            document.querySelector("#code").innerText = decodeURI("${encodeURI(usageHtml(url.origin + "/"))}");
           });
         </script>`
 
