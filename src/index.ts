@@ -92,12 +92,12 @@ const generateExampleHtml = (siteKey: string): string => `
 `;
 
 export default {
-  async fetch(request: Request): Promise<Response> {
+  async fetch(request: Request, env: any): Promise<Response> {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    const SITE_KEY = "0x4AAAAAABDoQrtu24i-WqVH";
-    const SECRET = "0x4AAAAAABDoQoR80Ez9fp3oHXp2LJ8idS8";
+    const SITE_KEY = env.SITE_KEY;
+    const SECRET = env.SECRET;
     const WORKER_URL = url.origin;
 
     if (path === '/captcha.js') {
